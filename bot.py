@@ -17,7 +17,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 # ═══════════════════════════════════════════════════
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "8632705238:AAGBhG6i1hEIAorOvvj2NYNVL5hSl5dNtO8")
-CHANNEL_URL = "https://t.me/energyspace"  # ← заміни на свій канал
+CHANNEL_URL = "https://t.me/nrgcoffee"  # ← заміни на свій канал
 
 # ═══════════════════════════════════════════════════
 # МЕНЮ
