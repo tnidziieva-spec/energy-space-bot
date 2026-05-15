@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 from aiogram import Bot, Dispatcher, F, Router
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram.types import (
     Message, CallbackQuery,
     ReplyKeyboardMarkup, KeyboardButton,
@@ -17,7 +17,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 # ═══════════════════════════════════════════════════
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "8632705238:AAGBhG6i1hEIAorOvvj2NYNVL5hSl5dNtO8")
-CHANNEL_URL = "https://t.me/nrgcoffee"  # ← заміни на свій канал
+CHANNEL_URL = "https://t.me/nrgcoffee"
 
 # ═══════════════════════════════════════════════════
 # МЕНЮ
@@ -77,9 +77,8 @@ MILK_OPTIONS = {
 }
 
 EVENTS = [
-    {"date": "22 травня, 19:00", "title": "Вечір настільних ігор",  "desc": "Кава + ігри + нові знайомства 🎲"},
-    {"date": "25 травня, 11:00", "title": "Майстер-клас з кави",     "desc": "Як заварити ідеальний фільтр ☕"},
-    {"date": "31 травня, 18:00", "title": "Кіновечір на даху",        "desc": "Кіно під зорями + напої 🎬"},
+    {"date": "16 травня, 15:00", "title": "Скільки грошей тобі потрібно для стабільності?", "desc": "Юлія Новіцька — фінансовий консультант
+Energy Space · Осокорки, ЖК RiverStone"},
 ]
 
 # ═══════════════════════════════════════════════════
@@ -251,6 +250,10 @@ SUGAR_MAP      = {"Без цукру":0,"1 ч.л.":1,"2 ч.л.":2,"3 ч.л.":3}
 
 router = Router()
 
+@router.message(Command("chatid"))
+async def cmd_chatid(message: Message):
+    await message.answer(f"Chat ID цього чату: {message.chat.id}")
+
 @router.message(CommandStart())
 async def cmd_start(message: Message, state: FSMContext):
     await state.clear()
@@ -271,7 +274,7 @@ async def cmd_start(message: Message, state: FSMContext):
         reply_markup=main_menu_kb(uid in user_history)
     )
     await message.answer(
-        "📢 Підписуйся на наш канал — анонси подій, нові напої та акції:",
+        "📢 Підписуйся на наш канал — анонси подій, реєстрація на заходи, нові напої та акції:",
         reply_markup=channel_inline()
     )
 
